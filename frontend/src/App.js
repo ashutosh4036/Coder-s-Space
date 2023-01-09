@@ -13,8 +13,8 @@ import {useSelector} from 'react-redux';
 function App() {
   return (
     <BrowserRouter>
-    <Navigation />
-    <Switch>
+      <Navigation />
+      <Switch>
         <GuestRoute path="/" exact>
             <Home />
         </GuestRoute>
