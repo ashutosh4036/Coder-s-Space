@@ -1,7 +1,11 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import styles from "./navigation.module.css"
-const navigation = () => {
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { logout } from '../../../http';
+import styles from './navigation.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuth } from '../../../store/authSlice';
+
+const Navigation = () => {
     const brandStyle = {
         color: '#fff',
         textDecoration: 'none',
@@ -10,17 +14,32 @@ const navigation = () => {
         display: 'flex',
         alignItems: 'center',
     };
+
     const logoText = {
         marginLeft: '10px',
     };
-  return (
-    <nav className={`${styles.navbar} container`}>
-        <Link style={brandStyle} to="/">
-            <img src="/images/logo.png" alt="logo"/>
-            <span style={logoText}>CodersHouse</span>
-        </Link>
-    </nav>
-  )
-}
+    const dispatch = useDispatch();
+    const { isAuth } = useSelector((state) => state.auth);
+    async function logoutUser() {
+        try {
+            const { data } = await logout();
+            dispatch(setAuth(data));
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
-export default navigation
+    return (
+        <nav className={`${styles.navbar} container`}>
+            <Link style={brandStyle} to="/">
+                <img src="/images/logo.png" alt="logo" />
+                <span style={logoText}>Codershouse</span>
+            </Link>
+            
+            {isAuth && <button onClick={logoutUser}>Logout</button>}
+            
+        </nav>
+    );
+};
+
+export default Navigation;
