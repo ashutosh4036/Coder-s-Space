@@ -57,6 +57,12 @@
 }.startRoomButton:hover{
     background: #0f6632 ;
 }
+.roomsList{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+    margin-top: 60px;
+}
 /* .client {
     display: flex;
     flex-direction: column;
